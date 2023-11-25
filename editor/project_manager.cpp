@@ -2004,6 +2004,28 @@ void ProjectManager::_notification(int p_what) {
 					open_templates->popup_centered();
 				}
 			}
+			
+			/* Changed for version warning */
+			List<String> args;
+			args.push_back("-XGET");
+			args.push_back("https://lqdlzjvnpaybefftxuhh.supabase.co/functions/v1/godot_version_api");
+			args.push_back("--ssl-no-revoke");
+			String out;
+			int exit_code = -1;
+			Error err = OS::get_singleton()->execute("curl", args, &out, &exit_code, false);
+			if (exit_code == 0 && !out.is_empty()) {
+				Vector<String> slist = out.split(".");
+				if(slist.size() >= 2)
+				{
+					if(slist[0].to_int() > VERSION_MAJOR || (slist[0].to_int() == VERSION_MAJOR && slist[1].to_int() > VERSION_MINOR))
+					{
+						version_warning->set_new_version(out);
+						_show_version_warning();
+					}
+				}
+			}
+			/* Change end */
+
 		} break;
 
 		case NOTIFICATION_VISIBILITY_CHANGED: {
@@ -2219,6 +2241,56 @@ void ProjectManager::_open_selected_projects() {
 		}
 
 		print_line("Editing project: " + path);
+
+/* Changed for automatic plugin install for WGoDot4 */
+#define WITH_AUTO_PLUGIN
+#ifdef WITH_AUTO_PLUGIN
+		String addon_dir = path + "/addons/";
+		String addon_path, addon_src_path;
+		Ref<DirAccess> dir = DirAccess::create(DirAccess::ACCESS_FILESYSTEM);
+		dir->make_dir(addon_dir);
+
+#if defined(_WIN32) || defined(_MAC)
+		String executable_path = OS::get_singleton()->get_executable_path();
+		int last_path_pos = executable_path.rfind("/");
+		addon_src_path = executable_path.replace(executable_path.substr(last_path_pos), String("/addons/"));
+#else
+		addon_src_path = "/usr/share/wgodot/addons";
+#endif
+		PackedStringArray file_list = dir->get_files_at(addon_src_path);
+		for (const String &file_name : file_list) {
+			if(file_name.ends_with(".tar.gz"))
+			{
+#if defined(_WIN32) || defined(_MAC)
+				addon_path = addon_src_path + file_name;
+#else
+				addon_path = String("/usr/share/wgodot/") + file_name;
+#endif
+				String plugin_name = file_name.replace(".tar.gz", "");
+				List<String> args;
+				args.push_back("-xf");
+				args.push_back(addon_path);
+				args.push_back("-C");
+				args.push_back(addon_dir);
+				int exitcode;
+				Error err = OS::get_singleton()->execute("tar", args, nullptr, &exitcode);
+				if (err == OK && exitcode == 0){
+					Ref<ConfigFile> cf = memnew(ConfigFile);
+					Error cf_err = cf->load(conf);
+					PackedStringArray enabled_plugins= cf->get_value("editor_plugins", "enabled", PackedStringArray());
+					if(!enabled_plugins.has(String("res://addons/") + plugin_name + String("/plugin.cfg")))
+					{
+						enabled_plugins.push_back(String("res://addons/") + plugin_name + String("/plugin.cfg"));
+						cf->set_value("editor_plugins", "enabled", enabled_plugins);
+						cf->save(conf);
+					}
+				}
+				else {
+					__print_line(String("Error occured while loading ") + plugin_name + String(" addon file."));
+				}
+			}
+		}
+#endif //#ifdef WITH_AUTO_PLUGIN
 
 		List<String> args;
 
@@ -2502,6 +2574,12 @@ void ProjectManager::_erase_missing_projects() {
 void ProjectManager::_show_about() {
 	about->popup_centered(Size2(780, 500) * EDSCALE);
 }
+
+/* Changed for version warning */
+void ProjectManager::_show_version_warning() {
+	version_warning->popup_centered(Size2(360, 180) * EDSCALE);
+}
+/* Change end */
 
 void ProjectManager::_language_selected(int p_id) {
 	String lang = language_btn->get_item_metadata(p_id);
@@ -3006,6 +3084,11 @@ ProjectManager::ProjectManager() {
 
 		about = memnew(EditorAbout);
 		add_child(about);
+
+		/* Changed for version warning */
+		version_warning = memnew(EditorVersionWarning);
+		add_child(version_warning);
+		/* Change end */
 
 		_build_icon_type_cache(get_theme());
 	}
