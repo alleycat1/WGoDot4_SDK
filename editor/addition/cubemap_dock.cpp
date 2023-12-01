@@ -368,22 +368,22 @@ CubeMapDock::CubeMapDock() {
 	front_img->set_draw_bg(true);
 	back_img->set_draw_bg(true);
 
-	top_img->set_stretch_mode(TextureButton::STRETCH_KEEP_ASPECT);
+	top_img->set_stretch_mode(TextureButton::STRETCH_SCALE);
 	top_img->set_ignore_texture_size(true);
 	top_img->set_custom_minimum_size({100, 100});
-	bottom_img->set_stretch_mode(TextureButton::STRETCH_KEEP_ASPECT);
+	bottom_img->set_stretch_mode(TextureButton::STRETCH_SCALE);
 	bottom_img->set_ignore_texture_size(true);
 	bottom_img->set_custom_minimum_size({100, 100});
-	left_img->set_stretch_mode(TextureButton::STRETCH_KEEP_ASPECT);
+	left_img->set_stretch_mode(TextureButton::STRETCH_SCALE);
 	left_img->set_ignore_texture_size(true);
 	left_img->set_custom_minimum_size({100, 100});
-	right_img->set_stretch_mode(TextureButton::STRETCH_KEEP_ASPECT);
+	right_img->set_stretch_mode(TextureButton::STRETCH_SCALE);
 	right_img->set_ignore_texture_size(true);
 	right_img->set_custom_minimum_size({100, 100});
-	front_img->set_stretch_mode(TextureButton::STRETCH_KEEP_ASPECT);
+	front_img->set_stretch_mode(TextureButton::STRETCH_SCALE);
 	front_img->set_ignore_texture_size(true);
 	front_img->set_custom_minimum_size({100, 100});
-	back_img->set_stretch_mode(TextureButton::STRETCH_KEEP_ASPECT);
+	back_img->set_stretch_mode(TextureButton::STRETCH_SCALE);
 	back_img->set_ignore_texture_size(true);
 	back_img->set_custom_minimum_size({100, 100});
 	/* } */

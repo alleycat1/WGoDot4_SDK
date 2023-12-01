@@ -257,18 +257,26 @@ void TextureButton::_notification(int p_what) {
 			/* Added for showing images { */
 			if(draw_bg)
 			{
+				Size2 size = get_size();
 				if (normal.is_valid())
 				{
-					Size2 size = get_size();
 					draw_circle(Point2(size.width-8, 8), 5, Color(0.183,0.824,0.386));
-					draw_line(Point2(size.width-11, 8), Point2(size.width-8, 11), Color(1,1,1), 2.0);
-					draw_line(Point2(size.width-8, 11), Point2(size.width-5, 5), Color(1,1,1), 2.0);
+					draw_line(Point2(size.width-11, 8), Point2(size.width-8, 11), Color(1,1,1), 1.5);
+					draw_line(Point2(size.width-8, 11), Point2(size.width-5, 5), Color(1,1,1), 1.5);
 					//draw_string(get_theme_default_font(), Point2(5, 15), get_name(), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(0,0,0));
 				}
 				else
 				{
-					draw_line(Point2(50, 30), Point2(50, 70), Color(0.5,0.5,0.5), 4.0);
-					draw_line(Point2(30, 50), Point2(70, 50), Color(0.5,0.5,0.5), 4.0);
+					if(size.width >= 100)
+					{
+						draw_line(Point2(size.width/2, 30), Point2(size.width/2, 70), Color(0.5,0.66,0.05), 4.0);
+						draw_line(Point2(size.width/2-20, 50), Point2(size.width/2+20, 50), Color(0.5,0.66,0.05), 4.0);
+					}
+					else
+					{
+						draw_line(Point2(50, 30), Point2(50, 70), Color(0.5,0.66,0.05), 4.0);
+						draw_line(Point2(30, 50), Point2(70, 50), Color(0.5,0.66,0.05), 4.0);
+					}
 					//draw_string(get_theme_default_font(), Point2(5, 15), get_name(), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(0,0,0));
 				}
 			}
