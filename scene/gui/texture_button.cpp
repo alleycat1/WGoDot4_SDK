@@ -269,13 +269,13 @@ void TextureButton::_notification(int p_what) {
 				{
 					if(size.width >= 100)
 					{
-						draw_line(Point2(size.width/2, 30), Point2(size.width/2, 70), Color(0.5,0.66,0.05), 4.0);
-						draw_line(Point2(size.width/2-20, 50), Point2(size.width/2+20, 50), Color(0.5,0.66,0.05), 4.0);
+						draw_line(Point2(size.width/2, 30), Point2(size.width/2, 70), Color(1,0.66,0.05), 4.0);
+						draw_line(Point2(size.width/2-20, 50), Point2(size.width/2+20, 50), Color(1,0.66,0.05), 4.0);
 					}
 					else
 					{
-						draw_line(Point2(50, 30), Point2(50, 70), Color(0.5,0.66,0.05), 4.0);
-						draw_line(Point2(30, 50), Point2(70, 50), Color(0.5,0.66,0.05), 4.0);
+						draw_line(Point2(50, 30), Point2(50, 70), Color(1,0.66,0.05), 4.0);
+						draw_line(Point2(30, 50), Point2(70, 50), Color(1,0.66,0.05), 4.0);
 					}
 					//draw_string(get_theme_default_font(), Point2(5, 15), get_name(), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(0,0,0));
 				}
