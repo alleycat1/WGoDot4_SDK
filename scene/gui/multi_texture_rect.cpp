@@ -31,9 +31,9 @@ void MultiTextureRect::_notification(int p_what) {
 							Size2 img_size = img->get_size();
 							Point2 offset;
 							if(size.width == 0)
-								size.width = 800;
+								size.width = 500;
 							if(size.height == 0)
-								size.height = 600;
+								size.height = 500;
 							offset.x = abs(rand() % (int)(size.width));
 							offset.y = abs(rand() % (int)(size.height));
 							if(offset.x + img_size.width > size.width)
