@@ -872,7 +872,7 @@ public:
 
 	void set_convert_old_scene(bool p_old) { convert_old = p_old; }
 
-	void show_image_composer(const String &p_path){ image_composer->show_dialog(p_path); }
+	void show_image_composer(const String &p_path);
 
 	void notify_all_debug_sessions_exited();
 

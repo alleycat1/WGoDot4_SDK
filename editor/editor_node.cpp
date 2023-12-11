@@ -1662,6 +1662,10 @@ bool EditorNode::_validate_scene_recursive(const String &p_filename, Node *p_nod
 	return false;
 }
 
+void EditorNode::show_image_composer(const String &p_path){
+	image_composer->show_dialog(p_path);
+}
+
 int EditorNode::_save_external_resources() {
 	// Save external resources and its subresources if any was modified.
 

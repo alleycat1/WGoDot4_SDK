@@ -2,6 +2,7 @@
 
 #include "core/core_string_names.h"
 #include "servers/rendering_server.h"
+#include "editor/plugins/node_3d_editor_plugin.h"
 
 void MultiTextureRect::_notification(int p_what) {
 	switch (p_what) {
@@ -31,9 +32,9 @@ void MultiTextureRect::_notification(int p_what) {
 							Size2 img_size = img->get_size();
 							Point2 offset;
 							if(size.width == 0)
-								size.width = 800;
+								size.width = Node3DEditor::get_singleton()->get_size().width;
 							if(size.height == 0)
-								size.height = 600;
+								size.height = Node3DEditor::get_singleton()->get_size().height - 30;
 							offset.x = abs(rand() % (int)(size.width));
 							offset.y = abs(rand() % (int)(size.height));
 							if(offset.x + img_size.width > size.width)
