@@ -7212,6 +7212,9 @@ EditorNode::EditorNode() {
 	gui_base->add_child(fbx_importer_manager);
 #endif
 
+	image_composer = memnew(ImageComposer);
+	gui_base->add_child(image_composer);
+	
 	warning = memnew(AcceptDialog);
 	warning->add_button(TTR("Copy Text"), true, "copy");
 	gui_base->add_child(warning);

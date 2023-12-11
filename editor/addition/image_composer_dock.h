@@ -21,7 +21,6 @@
 #include "editor/editor_file_dialog.h"
 #include "scene/gui/dialogs.h"
 #include "scene/gui/line_edit.h"
-#include "scene/gui/multi_texture_rect.h"
 
 //class TreeItem;
 
@@ -45,7 +44,6 @@ protected:
 	Button *path_browse = nullptr;
 
 	EditorFileDialog *browse_dialog = nullptr;
-	MultiTextureRect *image_panel;
 
 public:
 	ImageComposerDock();

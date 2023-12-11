@@ -60,12 +60,6 @@ ImageComposerDock::ImageComposerDock() {
 
 	vb->add_child(hb);
 
-	image_panel = memnew(MultiTextureRect);
-	image_panel->set_stretch_mode(MultiTextureRect::STRETCH_SCALE);
-	image_panel->set_custom_minimum_size({500, 500});
-
-	vb->add_child(image_panel);
-
 	add_child(vb);
 
 	browse_dialog = memnew(EditorFileDialog);
@@ -92,6 +86,6 @@ void ImageComposerDock::_select_dir(const String &p_path) {
 	if(p_path.length() > 0)
 	{
 		image_path->set_text(p_path);
-		image_panel->set_texture_path(p_path);
+		EditorNode::get_singleton()->show_image_composer(p_path);
 	}
 }
